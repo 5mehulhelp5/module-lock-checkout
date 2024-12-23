@@ -18,7 +18,7 @@ O módulo **LucasZit_LockCheckout** foi desenvolvido para ajudar lojistas a lida
 ## 💻 Instalação
 1. ⬇️ **Download**: Faça o download do módulo através do Composer.
    ```bash
-   composer require lucaszit/lockcheckout
+   composer require lucaszit/module-lock-checkout
    ```
 2. 🛠️ **Habilitação**: Habilite o módulo no Magento 2:
    ```bash
