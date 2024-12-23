@@ -1,0 +1,22 @@
+{
+    "name": "lucaszit/module-lock-checkout",
+    "description": "Restrict checkout access with configurable redirection and messaging.",
+    "version": "1.0.0",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Lucas Pereira",
+            "email": "lucas.pereira080@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "LucasZit\\LockCheckout\\": ""
+        }
+    }
+}

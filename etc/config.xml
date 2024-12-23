@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  Copyright © 2024 LucasZit. All rights reserved.
+  See COPYING.txt for license details.
+
+  Author: Lucas Pereira
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lock_checkout>
+            <general>
+                <enable_module>0</enable_module>
+                <auto_assign>0</auto_assign>
+                <lock_message>Your account is locked for checkout. Please contact support.</lock_message>
+                <redirect_on_lock>0</redirect_on_lock>
+            </general>
+        </lock_checkout>
+    </default>
+</config>
