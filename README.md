@@ -13,7 +13,6 @@ O módulo **LucasZit_LockCheckout** foi desenvolvido para ajudar lojistas a lida
 - 🛒 **Atributo Customizado no Cliente**: Gerenciamento fácil de bloqueios diretamente no perfil do cliente.
 - 🧑‍💻 **Controle Admin**: ACL para garantir que apenas usuários autorizados possam configurar bloqueios.
 
----
 
 ## 💻 Instalação
 1. ⬇️ **Download**: Faça o download do módulo através do Composer.
@@ -40,7 +39,6 @@ As configurações do módulo podem ser acessadas em:
 ### 🛡️ ACL
 Uma opção de ACL foi criada no menu Magento_Customer com o nome de Lock Checkout para controlar as permissões de usuários administrativos. Isso garante que apenas usuários autorizados possam ativar ou desativar o bloqueio de checkout.
 
----
 
 ## 🧪 Testes Unitários
 ✅ Testes foram implementados para validar as funcionalidades principais do módulo, assegurando sua estabilidade e confiabilidade.
@@ -59,7 +57,6 @@ Contribuições são bem-vindas! Para colaborar:
 ## 📜 Licença
 Este módulo está licenciado como **Proprietary**. Consulte o arquivo LICENSE para mais detalhes.
 
----
 
 ## 💻 Autor
 **Lucas Pereira**  
