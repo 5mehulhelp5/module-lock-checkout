@@ -18,10 +18,12 @@ use Magento\Store\Model\ScopeInterface;
  */
 class AdminConfiguration
 {
-    public const string XML_PATH_MODULE_ENABLE = 'lock_checkout/general/enable_module';
-    public const string XML_PATH_AUTO_ASSIGN = 'lock_checkout/general/auto_assign';
-    public const string XML_PATH_LOCK_MESSAGE = 'lock_checkout/general/lock_message';
-    public const string XML_PATH_REDIRECT_CHECKOUT = 'lock_checkout/general/redirect_on_lock';
+    public const XML_PATH_MODULE_ENABLE = 'lock_checkout/general/enable_module';
+    public const XML_PATH_ORDER_COUNT = 'lock_checkout/general/order_count_threshold';
+    public const XML_PATH_ORDER_STATUS_FILTER = 'lock_checkout/general/order_status_filter';
+    public const XML_PATH_AUTO_ASSIGN = 'lock_checkout/general/auto_assign';
+    public const XML_PATH_LOCK_MESSAGE = 'lock_checkout/general/lock_message';
+    public const XML_PATH_REDIRECT_CHECKOUT = 'lock_checkout/general/redirect_on_lock';
 
     /**
      * AdminConfiguration Constructor.
@@ -40,6 +42,26 @@ class AdminConfiguration
     public function getModuleEnable(): string
     {
         return $this->scopeConfig->getValue(self::XML_PATH_MODULE_ENABLE, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Return order count value
+     *
+     * @return int
+     */
+    public function getOrderCount(): int
+    {
+        return (int) $this->scopeConfig->getValue(self::XML_PATH_ORDER_COUNT, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Return order status to filter on checkout validation
+     *
+     * @return string
+     */
+    public function getOrderStatusFilter(): string
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_ORDER_STATUS_FILTER, ScopeInterface::SCOPE_STORE);
     }
 
     /**
