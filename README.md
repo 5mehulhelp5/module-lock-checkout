@@ -6,12 +6,15 @@ O módulo **LucasZit_LockCheckout** foi desenvolvido para ajudar lojistas a lida
 - Impedir que clientes com comportamento suspeito realizem novas compras fraudulentas.
 - Configurar mensagens personalizadas para clientes bloqueados.
 - Redirecionar clientes bloqueados para páginas customizadas criadas com o Page Builder do Magento.
+- Bloquear o avanço para o checkout de clientes que tenham uma quantidade de pedidos definida no admin, com o status também definido no admin.
 
 ## 📋 Funcionalidades Principais
 - 🔒 **Bloqueio de Checkout**: Impede que clientes com comportamento suspeito avancem para o checkout.
 - ⚙️ **Configurações Customizáveis**: Permite configurar redirecionamento e mensagens personalizadas.
 - 🛒 **Atributo Customizado no Cliente**: Gerenciamento fácil de bloqueios diretamente no perfil do cliente.
 - 🧑‍💻 **Controle Admin**: ACL para garantir que apenas usuários autorizados possam configurar bloqueios.
+- 📊 **Bloqueio baseado em pedidos**: Bloqueia clientes que atingem o limite de pedidos com um status específico, configurado no admin.
+- 📚 O módulo tem suporte a tradução pt_BR.
 
 
 ## 💻 Instalação

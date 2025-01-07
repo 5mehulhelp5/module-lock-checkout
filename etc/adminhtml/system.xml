@@ -21,7 +21,23 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Select "Yes" to enable the Lock Checkout functionality.</comment>
                 </field>
-                <field id="auto_assign" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="order_status_filter" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order Status Filter</label>
+                    <source_model>Magento\Sales\Model\ResourceModel\Order\Status\Collection</source_model>
+                    <comment>Select the status to consider for locking the customer.</comment>
+                    <depends>
+                        <field id="enable_module">1</field>
+                    </depends>
+                </field>
+                <field id="order_count_threshold" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order Count Threshold</label>
+                    <comment>Set the number of orders with the selected status to lock the customer.</comment>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_module">1</field>
+                    </depends>
+                </field>
+                <field id="auto_assign" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Auto Assign Lock Checkout</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
@@ -29,15 +45,15 @@
                     </depends>
                     <comment>Automatically assign the Lock Checkout attribute as active for new customers.</comment>
                 </field>
-                <field id="redirect_on_lock" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="redirect_on_lock" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Redirect on Lock</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
                         <field id="enable_module">1</field>
                     </depends>
-                    <comment>Choose "Yes" to redirect locked customers to a specific CMS page Lock Checkout Message. If "No", they will remain on the home page with an error message.</comment>
+                    <comment>Choose "Yes" to redirect locked customers to lock-checkout-message page. If "No", they will remain on the home page with an error message.</comment>
                 </field>
-                <field id="lock_message" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="lock_message" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Message for Locked Checkout</label>
                     <depends>
                         <field id="enable_module">1</field>

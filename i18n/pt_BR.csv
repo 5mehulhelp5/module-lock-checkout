@@ -8,3 +8,8 @@
 "Message for Locked Checkout","Mensagem para Bloqueio de Checkout"
 "This message will be displayed to customers who are locked from proceeding to checkout.","Esta mensagem será exibida aos clientes que estão bloqueados de prosseguir para o checkout."
 "Lock Checkout Message","Mensagem de Bloquear Checkout"
+"Order Status Filter","Filtro de Status de Pedido"
+"Select the status to consider for locking the customer.","Selecione o status a ser considerado para bloquear o cliente."
+"Order Count Threshold","Limite de Contagem de Pedidos"
+"Set the number of orders with the selected status to lock the customer.","Defina o número de pedidos com o status selecionado para bloquear o cliente."
+

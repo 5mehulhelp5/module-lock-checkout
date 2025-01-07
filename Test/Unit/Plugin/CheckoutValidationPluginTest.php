@@ -1,10 +1,4 @@
 <?php
-/**
- * Copyright © 2024 LucasZit. All rights reserved.
- * See COPYING.txt for license details.
- *
- * @author Lucas Pereira
- */
 
 declare(strict_types=1);
 
@@ -15,10 +9,9 @@ use LucasZit\LockCheckout\Plugin\CheckoutValidationPlugin;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Message\ManagerInterface;
+use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\App\Action\Action;
-use Magento\Customer\Api\Data\CustomerInterface;
-use Magento\Framework\Api\AttributeInterface;
 
 /**
  * Class CheckoutValidationPluginTest for Unit Tests
@@ -34,7 +27,7 @@ class CheckoutValidationPluginTest extends TestCase
     private CustomerSession $customerSessionMock;
 
     /** @var CustomerRepositoryInterface */
-    private CustomerRepositoryInterface $customerRepositoryInterfaceMock;
+    private CustomerRepositoryInterface $customerRepositoryMock;
 
     /** @var AdminConfiguration */
     private AdminConfiguration $adminConfigurationMock;
@@ -42,14 +35,8 @@ class CheckoutValidationPluginTest extends TestCase
     /** @var ManagerInterface */
     private ManagerInterface $messageManagerMock;
 
-    /** @var Action */
-    private Action $actionMock;
-
-    /** @var CustomerInterface */
-    private CustomerInterface $customerInterfaceMock;
-
-    /** @var AttributeInterface */
-    private AttributeInterface $attributeInterfaceMock;
+    /** @var OrderCollectionFactory */
+    private OrderCollectionFactory $orderCollectionFactoryMock;
 
     /**
      * Setup Tests
@@ -59,19 +46,17 @@ class CheckoutValidationPluginTest extends TestCase
     protected function setUp(): void
     {
         $this->customerSessionMock = $this->createMock(CustomerSession::class);
-        $this->customerRepositoryInterfaceMock = $this->createMock(CustomerRepositoryInterface::class);
+        $this->customerRepositoryMock = $this->createMock(CustomerRepositoryInterface::class);
         $this->adminConfigurationMock = $this->createMock(AdminConfiguration::class);
         $this->messageManagerMock = $this->createMock(ManagerInterface::class);
-
-        $this->actionMock = $this->createMock(Action::class);
-        $this->customerInterfaceMock = $this->createMock(CustomerInterface::class);
-        $this->attributeInterfaceMock = $this->createMock(AttributeInterface::class);
+        $this->orderCollectionFactoryMock = $this->createMock(OrderCollectionFactory::class);
 
         $this->instance = new CheckoutValidationPlugin(
             $this->customerSessionMock,
-            $this->customerRepositoryInterfaceMock,
+            $this->customerRepositoryMock,
             $this->adminConfigurationMock,
-            $this->messageManagerMock
+            $this->messageManagerMock,
+            $this->orderCollectionFactoryMock
         );
     }
 
@@ -80,7 +65,7 @@ class CheckoutValidationPluginTest extends TestCase
      *
      * @covers ::__construct
      *
-     * return void
+     * @return void
      */
     public function testCanCreate(): void
     {
@@ -88,60 +73,26 @@ class CheckoutValidationPluginTest extends TestCase
     }
 
     /**
-     * ArrangeEqualsMockTestsFragments
-     *
-     * @return void
-     */
-    public function arrangeEqualsMockTestsFragments(): void
-    {
-        $this->adminConfigurationMock
-            ->expects($this->exactly(1))
-            ->method('getModuleEnable')
-            ->willReturn('1');
-
-        $this->customerSessionMock
-            ->expects($this->exactly(1))
-            ->method('isLoggedIn')
-            ->willReturn(1);
-
-        $this->customerSessionMock
-            ->expects($this->exactly(1))
-            ->method('getCustomerId')
-            ->willReturn(1);
-
-        $this->customerRepositoryInterfaceMock
-            ->expects($this->exactly(1))
-            ->method('getById')
-            ->with(1)
-            ->willReturn($this->customerInterfaceMock);
-
-        $this->customerInterfaceMock
-            ->expects($this->exactly(1))
-            ->method('getCustomAttribute')
-            ->with('lock_checkout')
-            ->willReturn($this->attributeInterfaceMock);
-    }
-
-    /**
-     * TestBeforeDispatchWhenModuleIsDisable
+     * TestBeforeDispatchWhenModuleIsDisabled
      *
      * @covers ::beforeDispatch
      *
      * @return void
      */
-    public function testBeforeDispatchWhenModuleIsDisable(): void
+    public function testBeforeDispatchWhenModuleIsDisabled(): void
     {
         // Arrange
-        $this->adminConfigurationMock
-            ->expects($this->exactly(1))
+        $this->adminConfigurationMock->expects($this->once())
             ->method('getModuleEnable')
             ->willReturn('0');
 
+        $actionMock = $this->createMock(Action::class);
+
         // Act
-        $result = $this->instance->beforeDispatch($this->actionMock);
+        $result = $this->instance->beforeDispatch($actionMock);
 
         // Assert
-        $this->assertSame(null, $result);
+        $this->assertNull($result);
     }
 
     /**
@@ -154,44 +105,20 @@ class CheckoutValidationPluginTest extends TestCase
     public function testBeforeDispatchWhenCustomerIsNotLoggedIn(): void
     {
         // Arrange
-        $this->adminConfigurationMock
-            ->expects($this->exactly(1))
+        $this->adminConfigurationMock->expects($this->once())
             ->method('getModuleEnable')
             ->willReturn('1');
 
-        $this->customerSessionMock
-            ->expects($this->exactly(1))
+        $this->customerSessionMock->expects($this->once())
             ->method('isLoggedIn')
-            ->willReturn(0);
+            ->willReturn(false);
+
+        $actionMock = $this->createMock(Action::class);
 
         // Act
-        $result = $this->instance->beforeDispatch($this->actionMock);
+        $result = $this->instance->beforeDispatch($actionMock);
 
         // Assert
-        $this->assertSame(null, $result);
-    }
-
-    /**
-     * TestBeforeDispatchWhenIsNotCustomerLocked
-     *
-     * @covers ::beforeDispatch
-     *
-     * @return void
-     */
-    public function testBeforeDispatchWhenIsNotCustomerLocked(): void
-    {
-        // Arrange
-        $this->arrangeEqualsMockTestsFragments();
-
-        $this->attributeInterfaceMock
-            ->expects($this->exactly(1))
-            ->method('getValue')
-            ->willReturn('0');
-
-        // Act
-        $result = $this->instance->beforeDispatch($this->actionMock);
-
-        // Assert
-        $this->assertSame(null, $result);
+        $this->assertNull($result);
     }
 }

@@ -71,6 +71,42 @@ class AdminConfigurationTest extends TestCase
     }
 
     /**
+     * TestGetOrderCount
+     *
+     * @covers ::getOrderCount
+     *
+     * @return void
+     */
+    public function testGetOrderCount(): void
+    {
+        $expectedValue = 1;
+        $this->scopeConfigMock->expects($this->once())
+            ->method('getValue')
+            ->with(AdminConfiguration::XML_PATH_ORDER_COUNT, ScopeInterface::SCOPE_STORE)
+            ->willReturn($expectedValue);
+
+        $this->assertEquals($expectedValue, $this->adminConfiguration->getOrderCount());
+    }
+
+    /**
+     * TestGetOrderStatusFilter
+     *
+     * @covers ::getOrderStatusFilter
+     *
+     * @return void
+     */
+    public function testGetOrderStatusFilter(): void
+    {
+        $expectedValue = 'canceled';
+        $this->scopeConfigMock->expects($this->once())
+            ->method('getValue')
+            ->with(AdminConfiguration::XML_PATH_ORDER_STATUS_FILTER, ScopeInterface::SCOPE_STORE)
+            ->willReturn($expectedValue);
+
+        $this->assertEquals($expectedValue, $this->adminConfiguration->getOrderStatusFilter());
+    }
+
+    /**
      * TestGetAutoAssignLockCheckout
      *
      * @covers ::getAutoAssignLockCheckout
